@@ -11,7 +11,6 @@
  * 4. attribute HTML class, berubah menjadi className
  * 5. penulisan style inline, berubah dari kebab-case menjadi camelCase untuk property css yang lebih dari 1 kata
  */
-import "./index.css";
 import styles from "./styles.module.css";
 
 const helloStyle = {
