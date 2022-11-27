@@ -65,7 +65,7 @@ export default class LockerPage extends Component {
       <>
         <h1>Locker</h1>
         <Button
-          className="me-2 px-2 py-2"
+          className="me-3 px-2 py-2"
           variant="dark"
           onClick={() => this.addLocker(false)}
         >

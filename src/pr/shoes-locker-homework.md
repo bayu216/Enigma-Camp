@@ -15,7 +15,7 @@ locker
 └── LockerPage.js
 ```
 
-1. ******\*\*******Model Locker******\*\******* berupa class yang akan menjadi bentuk data dari **state** `lockers`.
+1. **\*\***\*\***\*\***Model Locker**\*\***\*\***\*\*** berupa class yang akan menjadi bentuk data dari **state** `lockers`.
 
    ```jsx
    export default class Locker {

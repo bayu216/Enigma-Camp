@@ -6,7 +6,7 @@ import Alert from "react-bootstrap/Alert";
 export default function LockerSlot(props) {
   return (
     <>
-      <Card className="text-center mt-3">
+      <Card className="text-center mt-2">
         <Card.Header>
           <div
             className="d-flex justify-content-between"
