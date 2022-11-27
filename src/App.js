@@ -1,25 +1,28 @@
-import logo from "./logo.svg";
 import "./App.css";
-import { Hello, HelloClass } from "./intro/Hello";
+//import { Hello, HelloClass } from "./intro/Hello";
 import { Col, Container, Row } from "react-bootstrap";
-import CetakTabel from "./intro/CetakTabel";
+//import CetakTabel from "./intro/CetakTabel";
+//import PeopleView from "./intro/PeopleView";
+import LatihanPage from "./latihan/LatihanPage";
+import LockerSlot from "./pr/LockerSlot";
+import LockerPage from "./pr/LockerPage";
 
-function CobaCetak() {
-  return <p>Hay</p>;
-}
+// function CobaCetak() {
+//   return <p>Hay</p>;
+// }
 
 function App() {
-  let nama = "Joni";
-  let mobil = {
-    brand: "Toyota",
-    name: "Rush",
-  };
+  //   let nama = "Joni";
+  //   let mobil = {
+  //     brand: "Toyota",
+  //     name: "Rush",
+  //   };
 
-  let greet = () => {
-    console.log("Hello");
-    const hello = "Hello";
-    return hello;
-  };
+  //   let greet = () => {
+  //     console.log("Hello");
+  //     const hello = "Hello";
+  //     return hello;
+  //   };
 
   /**
    * TODO: turunkan mobil dan greet ke component Hello dan HelloClass
@@ -29,11 +32,10 @@ function App() {
 
   return (
     <Container fluid>
-      <Row>
-        {/* <Col>
+      {/* <Col>
           <Hello nama={nama} {...mobil} greet={greet} job="Actor" gender="M" />
-        </Col> */}
-        {/* <Col>
+        </Col>
+        <Col>
           <HelloClass nama={nama} {...mobil} greet={greet} />
           <HelloClass HelloCoba={CobaCetak} car={mobil} greet={greet}>
             <Hello
@@ -45,11 +47,15 @@ function App() {
             />
             <CobaCetak />
           </HelloClass>
-        </Col> */}
+        </Col>
         <Col sm="12">
           <CetakTabel />
-        </Col>
-      </Row>
+        </Col> */}
+      <Col>
+        {/* <PeopleView /> */}
+        {/* <LatihanPage increment={2} decrement={5} /> */}
+        <LockerPage />
+      </Col>
     </Container>
   );
 }
