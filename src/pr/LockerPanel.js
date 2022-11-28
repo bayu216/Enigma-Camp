@@ -7,7 +7,7 @@ export default function LockerPanel(props) {
         <div>
           <div className={props.status === true ? "d-none" : ""}>
             <Button
-              className="me-3 px-1 py-1"
+              className="me-2 px-1 py-1"
               variant="primary"
               disabled={props.shoes >= 3 ? true : false}
               onClick={() => props.putshoes(props.idx)}
