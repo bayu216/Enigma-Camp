@@ -15,6 +15,7 @@ import ShoeRentalPage from "./rental-shoes-fixed/ShoeRentalPage";
 import ShoeRentalPageFn from "./rental-shoes-fixed/ShoeRentalPageFn";
 import CounterReducerPage from "./counter-reducer/CounterReducerPage";
 import CounterReducerPageHover from "./counter-reducer/CounterReducerPageHover";
+import StateSamplePage from "./state-sample/StateSamplePage";
 
 // function CobaCetak() {
 //   return <p>Hay</p>;
@@ -72,8 +73,9 @@ function App() {
       {/* <UncontrolledPage /> */}
       {/* <ShoeRentalPage /> */}
       {/* <ShoeRentalPageFn /> */}
-      <CounterReducerPage />
-      <CounterReducerPageHover />
+      {/* <CounterReducerPage />
+      <CounterReducerPageHover /> */}
+      <StateSamplePage />
     </Container>
   );
 }
