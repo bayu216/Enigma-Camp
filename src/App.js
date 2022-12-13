@@ -16,6 +16,12 @@ import ShoeRentalPageFn from "./rental-shoes-fixed/ShoeRentalPageFn";
 import CounterReducerPage from "./counter-reducer/CounterReducerPage";
 import CounterReducerPageHover from "./counter-reducer/CounterReducerPageHover";
 import StateSamplePage from "./state-sample/StateSamplePage";
+import CounterReduxPage from "./counter-redux/CounterReduxPage";
+import { Provider } from "react-redux";
+import { counterStore } from "./counter-redux/counter-store";
+import CounterSlicePage from "./counter-redux-toolkit/CounterSlicePage";
+import GuestBookPageSlice from "./guest-book-toolkit/GuestBookPageSlice";
+import GuestBook from "./guest-book-toolkit-2/GuestBook";
 
 // function CobaCetak() {
 //   return <p>Hay</p>;
@@ -75,7 +81,13 @@ function App() {
       {/* <ShoeRentalPageFn /> */}
       {/* <CounterReducerPage />
       <CounterReducerPageHover /> */}
-      <StateSamplePage />
+      {/* <StateSamplePage /> */}
+      {/* <Provider store={counterStore}>
+        <CounterReduxPage />
+      </Provider> */}
+      {/* <CounterSlicePage /> */}
+      {/* <GuestBookPageSlice /> */}
+      <GuestBook />
     </Container>
   );
 }
