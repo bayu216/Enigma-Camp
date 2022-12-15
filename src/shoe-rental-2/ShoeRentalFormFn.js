@@ -1,7 +1,8 @@
-import { useContext, useState } from "react";
+import { nanoid } from "nanoid";
+import { Component, useContext, useState } from "react";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import ShoeRentalContextFn from "./ShoeRentalContextFn";
+import { useNavigate, useParams } from "react-router-dom";
+import ShoeRentalContext from "./ShoeRentalContext";
 
 export const TransactionStatus = {
   BORROWED: "Borrowed",
@@ -38,26 +39,28 @@ export class Transaction {
   }
 }
 
-const ShoeRentalFormFn = (props) => {
+export default function ShoeRentalForm(props) {
   const { getTransaction, saveTransaction: save } =
-    useContext(ShoeRentalContextFn);
-  const navigate = useNavigate();
+    useContext(ShoeRentalContext);
+  const { openList } = props;
+  // const [form, setForm] = useState(new Transaction());
   const params = useParams();
+  const navigate = useNavigate();
   const transaction = getTransaction(params.id);
-  const [state, setForm] = useState(transaction || new Transaction());
+  const [form, setForm] = useState(transaction || new Transaction());
 
   const borrowingFee = 10000;
   const borrowingFine = 5000;
   const defectReturnFine = 10000;
 
   const doCalculation = (name, value) => {
-    let status = state.status;
-    let payment = state.payment || 0;
-    let fine = state.fine || 0;
+    let status = form.status;
+    let payment = form.payment || 0;
+    let fine = form.fine || 0;
     let total = 0;
 
     if (name === "returnedAt") {
-      const { borrowedAt, duration } = state;
+      const { borrowedAt, duration } = form;
       const returnedAt = value;
 
       total = duration * borrowingFee;
@@ -76,6 +79,11 @@ const ShoeRentalFormFn = (props) => {
       if (value === ShoeCondition.DEFECT) {
         payment += defectReturnFine;
         fine += defectReturnFine;
+      } else {
+        if (form.condition === ShoeCondition.DEFECT) {
+          payment -= defectReturnFine;
+          fine -= doCalculation;
+        }
       }
     }
 
@@ -88,13 +96,13 @@ const ShoeRentalFormFn = (props) => {
 
   const onValueChange = ({ target: { name, value } }) => {
     const { status, payment, fine } = doCalculation(name, value);
-    setForm({ ...state, [name]: value, status, payment, fine });
+    setForm({ ...form, [name]: value, status, payment, fine });
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
 
-    save(state);
+    save(form);
     resetForm();
   };
 
@@ -121,7 +129,7 @@ const ShoeRentalFormFn = (props) => {
                 type="number"
                 name="returnedAt"
                 placeholder="Enter returning day"
-                value={state.returnedAt}
+                value={form.returnedAt}
                 onChange={onValueChange}
               />
             </Col>
@@ -133,7 +141,7 @@ const ShoeRentalFormFn = (props) => {
             <Col md="9">
               <Form.Select
                 name="condition"
-                value={state.condition}
+                value={form.condition}
                 onChange={onValueChange}
               >
                 <option>Select Shoe Condition</option>
@@ -151,7 +159,7 @@ const ShoeRentalFormFn = (props) => {
                 type="text"
                 name="status"
                 disabled
-                value={state.status}
+                value={form.status}
                 onChange={onValueChange}
               />
             </Col>
@@ -165,7 +173,7 @@ const ShoeRentalFormFn = (props) => {
                 type="number"
                 name="payment"
                 disabled
-                value={state.payment}
+                value={form.payment}
                 onChange={onValueChange}
               />
             </Col>
@@ -179,7 +187,7 @@ const ShoeRentalFormFn = (props) => {
                 type="number"
                 name="fine"
                 disabled
-                value={state.fine}
+                value={form.fine}
                 onChange={onValueChange}
               />
             </Col>
@@ -189,7 +197,7 @@ const ShoeRentalFormFn = (props) => {
     }
   };
 
-  const isReturnTransactionForm = props.transaction !== undefined;
+  const isReturnTransactionForm = transaction !== undefined;
 
   return (
     <Card>
@@ -207,7 +215,7 @@ const ShoeRentalFormFn = (props) => {
                 type="text"
                 name="shoe"
                 placeholder="Enter shoe name"
-                value={state.shoe}
+                value={form.shoe}
                 disabled={isReturnTransactionForm}
                 onChange={onValueChange}
               />
@@ -222,7 +230,7 @@ const ShoeRentalFormFn = (props) => {
                 type="text"
                 name="wearer"
                 placeholder="Enter wearer name"
-                value={state.wearer}
+                value={form.wearer}
                 disabled={isReturnTransactionForm}
                 onChange={onValueChange}
               />
@@ -237,7 +245,7 @@ const ShoeRentalFormFn = (props) => {
                 type="number"
                 name="borrowedAt"
                 placeholder="Enter borrowing day"
-                value={state.borrowedAt}
+                value={form.borrowedAt}
                 disabled={isReturnTransactionForm}
                 onChange={onValueChange}
               />
@@ -250,7 +258,7 @@ const ShoeRentalFormFn = (props) => {
             <Col md="9">
               <Form.Select
                 name="duration"
-                value={state.duration}
+                value={form.duration}
                 disabled={isReturnTransactionForm}
                 onChange={onValueChange}
               >
@@ -273,13 +281,7 @@ const ShoeRentalFormFn = (props) => {
             >
               Save
             </Button>
-            <Button
-              as={Link}
-              type="reset"
-              size="sm"
-              className="px-3"
-              to="/shoe-rental"
-            >
+            <Button type="reset" size="sm" className="px-3" onClick={resetForm}>
               Return
             </Button>
           </Col>
@@ -287,6 +289,4 @@ const ShoeRentalFormFn = (props) => {
       </Form>
     </Card>
   );
-};
-
-export default ShoeRentalFormFn;
+}

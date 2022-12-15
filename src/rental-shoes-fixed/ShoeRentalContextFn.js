@@ -1,3 +1,4 @@
+import { nanoid } from "nanoid";
 import { Component, createContext, useState } from "react";
 import { Transaction } from "./ShoeRentalFormFn";
 
@@ -6,30 +7,27 @@ const { Provider, Consumer: ShoeRentalConsumer } = ShoeRentalContextFn;
 
 function ShoeRentalProvider(props) {
   const [filter, setFilter] = useState(undefined);
-  const [transactionId, setTransactionId] = useState(undefined);
-  const [transactions, setTransaction] = useState([
-    new Transaction("Nike 1", "John", 1, 1),
-    new Transaction("Nike 2", "Jane", 2, 1),
-    new Transaction("Nike 3", "James", 3, 1),
-  ]);
+  const [transactionId, setTransactionId] = useState(null);
+  const [transactions, setTransactions] = useState([]);
 
   const saveTransaction = (transaction) => {
-    if (transactionId) {
-      setTransaction(undefined);
-      setTransaction(
+    if (transaction.id) {
+      setTransactions(
         transactions.map((trx) => {
-          if (trx.id === transactionId) {
+          if (trx.id === transaction.id) {
             trx = { ...transaction };
           }
+
           return trx;
         })
       );
     } else {
-      setTransaction([...transactions, transaction]);
+      transaction.id = nanoid();
+      setTransactions([...transactions, transaction]);
     }
   };
 
-  const getTransaction = () => {
+  const getTransaction = (transactionId) => {
     if (transactionId) {
       return transactions.find((trx) => trx.id === transactionId);
     }

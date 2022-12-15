@@ -6,6 +6,7 @@ import ShoeRentalContextFn, {
   ShoeRentalProvider,
   ShoeRentalConsumer,
 } from "./ShoeRentalContextFn";
+import { Outlet } from "react-router-dom";
 
 export default function ShoeRentalPageFn(props) {
   const [state, setState] = useState({
@@ -15,7 +16,10 @@ export default function ShoeRentalPageFn(props) {
   return (
     <ShoeRentalProvider>
       <Row className="m-5 vh-100 d-flex justify-content-center align-items-center">
-        {state.page === "form" ? (
+        <Col>
+          <Outlet />
+        </Col>
+        {/* {state.page === "form" ? (
           <Col md="8">
             <ShoeRentalFormFn
               openList={() => {
@@ -27,7 +31,7 @@ export default function ShoeRentalPageFn(props) {
           <Col>
             <ShoeRentalListFn openForm={() => setState({ page: "form" })} />
           </Col>
-        )}
+        )} */}
       </Row>
     </ShoeRentalProvider>
   );

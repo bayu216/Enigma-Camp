@@ -22,6 +22,9 @@ import { counterStore } from "./counter-redux/counter-store";
 import CounterSlicePage from "./counter-redux-toolkit/CounterSlicePage";
 import GuestBookPageSlice from "./guest-book-toolkit/GuestBookPageSlice";
 import GuestBook from "./guest-book-toolkit-2/GuestBook";
+import Header from "./layout/Header";
+import MainStore from "./store";
+import { Outlet } from "react-router-dom";
 
 // function CobaCetak() {
 //   return <p>Hay</p>;
@@ -87,7 +90,13 @@ function App() {
       </Provider> */}
       {/* <CounterSlicePage /> */}
       {/* <GuestBookPageSlice /> */}
-      <GuestBook />
+      {/* <GuestBook /> */}
+      <Provider store={MainStore}>
+        <Container fluid>
+          <Header />
+          <Outlet />
+        </Container>
+      </Provider>
     </Container>
   );
 }
